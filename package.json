@@ -1,0 +1,19 @@
+{
+  "name": "the-point-of-lease-resistance-public",
+  "version": "1.0.0",
+  "description": "POlear app public",
+  "main": "index.js",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yenerunver/ing-hackathon-app"
+  },
+  "license": "GNU",
+  "scripts": {
+    "start:api": "node api/server.js"
+  },
+  "dependencies": {
+    "express": "~4.18.3",
+    "http-errors": "~1.6.3"
+  }
+}
