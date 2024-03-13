@@ -10,7 +10,7 @@
   },
   "license": "GNU",
   "scripts": {
-    "start:api": "node api/server.js"
+    "start": "node api/server.js"
   },
   "dependencies": {
     "express": "~4.18.3",
