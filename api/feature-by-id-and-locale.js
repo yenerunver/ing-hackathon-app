@@ -26,7 +26,7 @@ app.http('feature-by-id-and-locale', {
         {
           "namespace": request.params.id,
           "locale": request.params.locale,
-          "library": resource
+          "library": resource.package
         }
       )
     };
