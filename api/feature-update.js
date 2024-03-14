@@ -1,5 +1,7 @@
 const { app } = require('@azure/functions');
 const db = require('./db.js');
+const db2storage = require('./db2storage.js')
+
 
 app.http('feature-update', {
   methods: ['POST'],
