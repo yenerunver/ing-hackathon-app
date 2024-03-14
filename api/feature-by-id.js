@@ -17,10 +17,11 @@ app.http('feature-by-id', {
     const connection = db.getConnection();
     const packages = connection.collection('packages');
     const cursor = await packages.find({});
-    const resource = [];
-    for await (const doc of cursor) {
-      resource.push(doc);
-    }
+    const resource = await packages.findOne({});
+    // const resource = [];
+    // for await (const doc of cursor) {
+    //   resource.push(doc);
+    // }
 
 
     if (!resource) {

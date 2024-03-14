@@ -17,13 +17,13 @@ app.http('feature-by-id-and-locale', {
     }
 
     await db.connect(process.env.MONGODB_URI);
-    const connection = db.getConnection(process.env.MONGODB_URI);
+    const connection = db.getConnection();
     const packages = connection.collection('packages');
-    const cursor = await packages.find({});
-    const resource = [];
-    for await (const doc of cursor) {
-      resource.push(doc);
-    }
+    const resource = await packages.findOne({});
+    // const resource = [];
+    // for await (const doc of cursor) {
+    //   resource.push(doc);
+    // }
 
 
     if (!resource) {
