@@ -2,10 +2,11 @@
     "name": "polear",
     "version": "1.0.0",
     "scripts": {
-      "start": "func start"
+        "start": "func start"
     },
     "dependencies": {
-      "@azure/functions": "^4.0.0"
+        "@azure/functions": "^4.0.0",
+        "mongoose": "^8.2.1"
     },
     "main": "api/**/*.js"
-  }
+}

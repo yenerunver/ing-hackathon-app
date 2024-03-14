@@ -1,26 +1,29 @@
-const { app, input } = require('@azure/functions');
+const { app } = require('@azure/functions');
+const { Schema, createConnection } = require('mongoose');
 
-const cosmosInput = input.cosmosDB({
-  databaseName: 'polear-db',
-  containerName: 'packages',
-  connection: 'polear-db_DOCUMENTDB',
+const connectionString = process.env.MONGODB_URI;
+
+const connection = createConnection(connectionString, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  autoIndex: true
 });
 
 app.http('feature', {
   methods: ['GET'],
   authLevel: 'anonymous',
   route: 'feature',
-  extraInputs: [cosmosInput],
   handler: async function (request, context) {
     try {
-      const resource = context.extraInputs.get(cosmosInput);
+      const resource = await connection.model('Packages', new Schema({ id: String }, {collection: 'packages'}))
 
       return {
         body: JSON.stringify(resource)
       };
     } catch (e) {
       return {
-        body: JSON.stringify(e)
+        status: 400,
+        error: JSON.stringify(e)
       }
     }
   }
