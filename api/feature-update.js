@@ -10,7 +10,7 @@ app.http('feature-update', {
     if (!namespace || !locale || !library) {
       return {
         status: 403,
-        body: JSON.stringify(request),
+        body: JSON.stringify(context),
       };
     }
 
