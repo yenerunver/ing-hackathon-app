@@ -15,7 +15,7 @@ app.http('feature', {
   route: 'feature',
   handler: async function (request, context) {
     try {
-      const resource = await connection.model('Packages', new Schema({ id: String }, {collection: 'packages'}))
+      const resource = await connection.model('Packages', new Schema({ id: String }, {collection: 'packages'})).find({});
 
       return {
         body: JSON.stringify(resource)
@@ -28,5 +28,3 @@ app.http('feature', {
     }
   }
 });
-
-app
