@@ -1,16 +1,5 @@
 const { app } = require('@azure/functions');
 
-app.http('feature/:id', {
-  methods: ['GET'],
-  authLevel: 'anonymous',
-  handler: async function (request, context) {
-    const { id } = context.bindingData;
-    return {
-        body: id
-    };
-  }
-});
-
 app.http('feature', {
   methods: ['GET'],
   authLevel: 'anonymous',
