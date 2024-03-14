@@ -10,7 +10,7 @@ const cosmosInput = input.cosmosDB({
 app.http('feature-by-id', {
   methods: ['GET'],
   authLevel: 'anonymous',
-  route: 'feature/:id',
+  route: 'feature/{id}',
   extraInputs: [cosmosInput],
   handler: async function (request, context) {
     const id = request.query.get('id') || '';
@@ -35,7 +35,9 @@ app.http('feature-by-id', {
         {
           "namespace": id,
           "locales": [],
-          "libraries": resource
+          "libraries": resource,
+          "request": request,
+          "context": context
         }
       )
     };

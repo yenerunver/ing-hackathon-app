@@ -11,7 +11,7 @@ const cosmosInput = input.cosmosDB({
 app.http('feature-by-id-and-locale', {
   methods: ['GET'],
   authLevel: 'anonymous',
-  route: 'feature/:id/:locale',
+  route: 'feature/{id}/{locale}',
   extraInputs: [cosmosInput],
   handler: async function (request, context) {
     const locale = request.query.get('locale') || '';
