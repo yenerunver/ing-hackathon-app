@@ -6,12 +6,13 @@ app.http('feature-update', {
   authLevel: 'anonymous',
   route: 'feature',
   handler: async function (request, context) {
-    const { namespace = '', locale = '', library = null } = request.body;
     const requestData = await request.json();
+    const { namespace = '', locale = '', library = null } = requestData;
+  
     if (!namespace || !locale || !library) {
       return {
         status: 403,
-        body: JSON.stringify(requestData),
+        body: 'Bad request',
       };
     }
 
@@ -21,7 +22,7 @@ app.http('feature-update', {
     const resource = await packages.replaceOne({
       namespace,
       locale
-    }, request.body);
+    }, requestData);
 
     if (!resource) {
       return {
