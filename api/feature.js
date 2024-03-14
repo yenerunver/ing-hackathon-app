@@ -2,8 +2,8 @@ const { app, input } = require('@azure/functions');
 
 const cosmosInput = input.cosmosDB({
   databaseName: 'polear-db',
-  collectionName: 'packages',
-  connectionStringSetting: 'CosmosDBConnection',
+  containerName: 'packages',
+  connection: 'polear-db_DOCUMENTDB',
 });
 
 app.http('feature', {
