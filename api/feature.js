@@ -12,11 +12,17 @@ app.http('feature', {
   route: 'feature',
   extraInputs: [cosmosInput],
   handler: async function (request, context) {
-    const resource = context.extraInputs.get(cosmosInput);
+    try {
+      const resource = context.extraInputs.get(cosmosInput);
 
-    return {
+      return {
         body: JSON.stringify(resource)
-    };
+      };
+    } catch (e) {
+      return {
+        body: JSON.stringify(e)
+      }
+    }
   }
 });
 
