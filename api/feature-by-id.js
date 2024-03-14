@@ -29,9 +29,7 @@ app.http('feature-by-id', {
       body: JSON.stringify(
         {
           "namespace": request.params.id,
-          "locales": Object.keys(libraries),
-          "libraries": libraries
-        }
+          "locales": Object.keys(libraries)        }
       )
     };
   }
