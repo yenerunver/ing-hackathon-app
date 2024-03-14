@@ -6,12 +6,6 @@ app.http('feature-by-id', {
   authLevel: 'anonymous',
   route: 'feature/{id}',
   handler: async function (request, context) {
-    if (!id) {
-      return {
-        status: 403,
-        body: 'Bad request!',
-      };
-    }
     await db.connect(process.env.MONGODB_URI);
     const connection = db.getConnection();
     const packages = connection.collection('packages');
