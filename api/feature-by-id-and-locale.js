@@ -1,30 +1,18 @@
-const { app, input } = require('@azure/functions');
-const db = require('./db.js')
+const { app } = require('@azure/functions');
+const db = require('./db.js');
 
 app.http('feature-by-id-and-locale', {
   methods: ['GET'],
   authLevel: 'anonymous',
   route: 'feature/{id}/{locale}',
   handler: async function (request, context) {
-    const locale = request.query.get('locale') || '';
-    const id = request.query.get('id') || '';
-
-    if (!locale || !id) {
-      return {
-        status: 403,
-        body: 'Bad request!',
-      };
-    }
-
     await db.connect(process.env.MONGODB_URI);
     const connection = db.getConnection();
     const packages = connection.collection('packages');
-    const resource = await packages.findOne({});
-    // const resource = [];
-    // for await (const doc of cursor) {
-    //   resource.push(doc);
-    // }
-
+    const resource = await packages.findOne({
+      namespace: request.params.id,
+      locale: request.params.locale
+    });
 
     if (!resource) {
       return {
@@ -35,12 +23,12 @@ app.http('feature-by-id-and-locale', {
 
     return {
       body: JSON.stringify(
-          {
-            "namespace": id,
-            "locale": locale,
-            "library": resource
-          }
-        )
+        {
+          "namespace": request.params.id,
+          "locale": request.params.locale,
+          "library": resource
+        }
+      )
     };
   }
 });
