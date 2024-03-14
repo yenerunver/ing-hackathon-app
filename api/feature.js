@@ -4,7 +4,7 @@ app.http('feature/:id', {
   methods: ['GET'],
   authLevel: 'anonymous',
   handler: async function (request, context) {
-    const { id } = context.bindingdata;
+    const { id } = context.bindingData;
     return {
         body: id
     };
