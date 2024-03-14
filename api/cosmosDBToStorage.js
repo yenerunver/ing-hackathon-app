@@ -1,7 +1,7 @@
 const { app } = require('@azure/functions');
 
 app.cosmosDB('cosmosDBToStorage', {
-    connectionStringSetting: 'polearapiserver_DOCUMENTDB',
+    connectionStringSetting: process.env['polear-db_DOCUMENTDB'],
     databaseName: 'polear-db',
     collectionName: 'packages',
     createLeaseCollectionIfNotExists: true,
@@ -9,3 +9,6 @@ app.cosmosDB('cosmosDBToStorage', {
         context.log(`Cosmos DB function processed ${documents.length} documents`);
     }
 });
+
+
+
