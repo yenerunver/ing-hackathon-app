@@ -22,7 +22,7 @@ app.http('feature-by-id', {
 
     const libraries = {};
     for await (const doc of cursor) {
-      libraries[doc.locale] = doc.package;
+      libraries[doc.locale] = doc.library;
     }
 
     return {
