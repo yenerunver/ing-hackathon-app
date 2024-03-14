@@ -6,6 +6,7 @@
     },
     "dependencies": {
         "@azure/functions": "^4.0.0",
+        "@azure/storage-blob": "^12.17.0",
         "mongodb": "^3.6.2"
     },
     "main": "api/**/*.js"

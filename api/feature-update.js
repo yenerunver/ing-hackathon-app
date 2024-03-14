@@ -24,6 +24,8 @@ app.http('feature-update', {
       locale
     }, requestData);
 
+    await db2storage.save(locale, namespace, requestData);
+
     if (!resource) {
       return {
         status: 404,
