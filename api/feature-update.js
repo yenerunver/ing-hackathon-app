@@ -7,10 +7,11 @@ app.http('feature-update', {
   route: 'feature',
   handler: async function (request, context) {
     const { namespace = '', locale = '', library = null } = request.body;
+    const requestData = await request.json();
     if (!namespace || !locale || !library) {
       return {
         status: 403,
-        body: JSON.stringify(context),
+        body: JSON.stringify(requestData),
       };
     }
 
