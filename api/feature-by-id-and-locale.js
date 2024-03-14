@@ -1,18 +1,10 @@
 const { app, input } = require('@azure/functions');
-
-const cosmosInput = input.cosmosDB({
-  databaseName: 'polear-db',
-  collectionName: 'packages',
-  namespace: '{id}',
-  locale: '{locale}',
-  connectionStringSetting: 'CosmosDBConnection',
-});
+const db = require('./db.js')
 
 app.http('feature-by-id-and-locale', {
   methods: ['GET'],
   authLevel: 'anonymous',
   route: 'feature/{id}/{locale}',
-  extraInputs: [cosmosInput],
   handler: async function (request, context) {
     const locale = request.query.get('locale') || '';
     const id = request.query.get('id') || '';
@@ -24,7 +16,16 @@ app.http('feature-by-id-and-locale', {
       };
     }
 
-    const resource = context.extraInputs.get(cosmosInput);
+    await db.connect(process.env.MONGODB_URI);
+    const connection = db.getConnection(process.env.MONGODB_URI);
+    const packages = connection.collection('packages');
+    const cursor = await packages.find({});
+    const resource = [];
+    for await (const doc of cursor) {
+      resource.push(doc);
+    }
+
+
     if (!resource) {
       return {
         status: 404,

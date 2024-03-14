@@ -1,13 +1,6 @@
 const { app } = require('@azure/functions');
-const { Schema, createConnection } = require('mongoose');
+const db = require('./db.js')
 
-const connectionString = process.env.MONGODB_URI;
-
-const connection = createConnection(connectionString, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  autoIndex: true
-});
 
 app.http('feature', {
   methods: ['GET'],
@@ -15,12 +8,20 @@ app.http('feature', {
   route: 'feature',
   handler: async function (request, context) {
     try {
-      const resource = await connection.model('Packages', new Schema({ id: String }), 'packages').find({});
+      await db.connect(process.env.MONGODB_URI);
+      const connection = db.getConnection(process.env.MONGODB_URI);
+      const packages = connection.collection('packages');
+      const cursor = await packages.find({});
+      const resource = [];
+      for await (const doc of cursor) {
+        resource.push(doc);
+      }
 
       return {
         body: JSON.stringify(resource)
       };
     } catch (e) {
+      console.log(e)
       return {
         status: 400,
         error: JSON.stringify(e)

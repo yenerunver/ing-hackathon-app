@@ -6,7 +6,7 @@
     },
     "dependencies": {
         "@azure/functions": "^4.0.0",
-        "mongoose": "^8.2.1"
+        "mongodb": "^3.6.2"
     },
     "main": "api/**/*.js"
 }
