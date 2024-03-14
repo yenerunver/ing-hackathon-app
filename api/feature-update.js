@@ -32,8 +32,7 @@ app.http('feature-update', {
     }
 
     return {
-      status: 200,
-      body: JSON.stringify(resource)
+      status: 204
     };
   }
 });
